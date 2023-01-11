@@ -4,14 +4,13 @@
         <title>ToyGrid Microfrontend Demo</title>
         <link rel="stylesheet" href="style.css">
         <!-- <script src="wasm_exec.js"></script> -->
-        <script src="wasm_exec.js"></script>
     </head>
     <body>
         <div id="javascript">loading...</div>
         <div id="go">loading...</div>
-        <button id="button">Click me</button>
 
         <script src="javascript/javascript.js"></script>
+        <script src="wasm_exec.js"></script>
         <!-- <script src="go/go.js"></script> -->
         <script> 
             const go = new Go();
@@ -19,17 +18,12 @@
             WebAssembly.instantiateStreaming(fetch("/go/main.wasm"), go.importObject).then((result) => {
                 // mod = result.module;
                 // inst = result.instance;
-                // document.getElementById("runButton").disabled = false;
-                document.getElementById("button").disabled = false;
                 go.run(result.instance);
-                // document.getElementById("go").innerHTML = inst.exports.hello(); 
+                document.getElementById("go").innerHTML = hello(); 
             }).catch((err) => {
                 console.error(err);
             });
 
-            document.getElementById("button").addEventListener("click", () => {
-                document.getElementById("go").innerHTML = hello(); 
-            });
         </script>
     </body>
 </html>
