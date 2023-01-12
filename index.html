@@ -8,10 +8,19 @@
     <body>
         <div id="javascript">loading...</div>
         <div id="go">loading...</div>
+        <div id="db">loading...</div>
 
-        <script src="javascript/javascript.js"></script>
+        <script src="javascript/main.js"></script>
+        <!--
         <script src="wasm_exec.js"></script>
-        <script src="go/go.js"></script> 
+        <script>
+            const go = new Go();
+        </script>
+        -->
+
+        <script type="module" src="/wasmgo.js"></script> 
+        <script type="module" src="/go/main.js"></script> 
+        <script type="module" src="/db/main.js"></script> 
     </body>
 </html>
 

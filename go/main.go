@@ -1,4 +1,4 @@
-// vim: setenv=GOOS=js:setenv=GOARCH=wasm:
+// wasmgo
 package main
 
 import (
