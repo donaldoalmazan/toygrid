@@ -1,4 +1,3 @@
-// wasmgo
 package main
 
 import (
@@ -22,6 +21,10 @@ const (
 )
 
 func main() {
+	defer func() {
+		// show a crash messsage
+		js.Global().Get("document").Call("getElementById", "db").Set("textContent", "Database app crashed")
+	}()
 
 	// Open the database named "mydb"
 	ctx := context.Background()
@@ -37,6 +40,9 @@ func main() {
 	addDumpButton()
 	// Add a div to the web page to hold the database data dump
 	addDumpDiv()
+
+	// replace the "loading" text with a message
+	js.Global().Get("document").Call("getElementById", "db").Set("textContent", "Database app loaded and running")
 
 	// wait forever
 	select {}
@@ -175,26 +181,3 @@ func onDumpPress(this js.Value, args []js.Value) interface{} {
 	}()
 	return nil
 }
-
-/*
-	// Iterate over the result and append each key-value pair to the div
-	ctx := context.TODO()
-	cursorRequest, err := store.OpenCursor(idb.CursorNext)
-	Ck(err)
-	cursorRequest.Iter(ctx, func(cursor *idb.CursorWithValue) error {
-		key, err := cursor.Key()
-		Ck(err)
-		value, err := cursor.Value()
-		Ck(err)
-
-		// Create a p element to hold the key-value pair
-		p := js.Global().Get("document").Call("createElement", "p")
-		txt := fmt.Sprintf("Key: %v, Value: %v", key, value)
-		p.Set("textContent", txt)
-		div.Call("appendChild", p)
-		return nil
-	})
-
-	return nil
-}
-*/

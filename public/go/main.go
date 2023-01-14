@@ -1,4 +1,3 @@
-// wasmgo
 package main
 
 import (

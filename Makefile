@@ -1,13 +1,18 @@
-all:
+wasm_srcs := $(wildcard public/**/*.go)
+wasm_objs := $(subst .go,.wasm,$(wasm_srcs))
 
-stdgo:
-	cp `go env GOROOT`/misc/wasm/wasm_exec.js wasm_exec.js
-	cd go; GOOS=js GOARCH=wasm go build -o main.wasm
-	cd db; GOOS=js GOARCH=wasm go build -o main.wasm
-	go run server/server.go ~/lab/cswg/toygrid
+all: $(wasm_objs) run
 
-tinygo:
-	cp `tinygo env TINYGOROOT`/targets/wasm_exec.js wasm_exec.js
-	tinygo build -o ./go/main.wasm -target wasm -no-debug ./go/main.go
-	tinygo build -o ./db/main.wasm -target wasm -no-debug ./db/main.go
-	go run server/server.go ~/lab/cswg/toygrid
+%.wasm: %.go
+	GOOS=js GOARCH=wasm go build -o $@ $<
+	# tinygo build -o $@ -target wasm $<
+	# tinygo build -o $@ -target wasm -no-debug $<
+
+clean:
+	rm -f $(wasm_objs)
+
+run:
+	cp `go env GOROOT`/misc/wasm/wasm_exec.js public/wasm_exec.js
+	# cp `tinygo env TINYGOROOT`/targets/wasm_exec.js public/wasm_exec.js
+	cd server && go run . ~/lab/cswg/toygrid/public
+
