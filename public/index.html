@@ -10,20 +10,16 @@
         <div id="go">loading...</div>
         <div id="db">loading...</div>
         <div id="websocket">loading...</div>
+        <div id="editor">loading...</div>
 
-        <script src="javascript/main.js"></script>
-        <!--
-        <script src="wasm_exec.js"></script>
-        <script>
-            const go = new Go();
-        </script>
-        -->
-
-        <script type="module" src="/wasmgo.js"></script> 
-
-        <script type="module" src="/go/main.js"></script> 
-        <script type="module" src="/db/main.js"></script> 
-        <script type="module" src="/websocket/main.js"></script> 
+        <!-- XXX move these into the microfrontend code,
+            possibly by using custom elements instead of divs -->
+        <script src="/javascript/main.js"></script>
+        <script src="/wasmgo.js" type="module" ></script> 
+        <script src="/go/main.js" type="module" ></script> 
+        <script src="/db/main.js" type="module" ></script> 
+        <script src="/websocket/main.js" type="module" ></script> 
+        <script src="/editor/main.js" type="module" ></script> 
     </body>
 </html>
 
