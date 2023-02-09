@@ -1,12 +1,17 @@
 wasm_srcs := $(wildcard public/**/*.go)
 wasm_objs := $(subst .go,.wasm,$(wasm_srcs))
 
-all: $(wasm_objs) run
+all: $(wasm_objs) tiptap run
 
 %.wasm: %.go
 	GOOS=js GOARCH=wasm go build -o $@ $<
 	# tinygo build -o $@ -target wasm $<
 	# tinygo build -o $@ -target wasm -no-debug $<
+
+tiptap:
+	cd editor && npm install 
+	# set REACT_APP_YJS_WEBSOCKET_SERVER_URL in local/env
+	. local/env && cd editor && npm run build
 
 clean:
 	rm -f $(wasm_objs)

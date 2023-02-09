@@ -106,3 +106,5 @@ dist
 # project-specific
 *.wasm
 wasm_exec.js
+local
+editor/build
