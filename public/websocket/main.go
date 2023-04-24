@@ -36,6 +36,7 @@ func main() {
 		err = wsjson.Write(ctx, c, sendMsg)
 		if err != nil {
 			fmt.Println("Failed to send message:", err)
+			time.Sleep(1 * time.Second)
 			continue
 		}
 		// Receive a message from the server
@@ -43,6 +44,7 @@ func main() {
 		err = wsjson.Read(ctx, c, &recvMsg)
 		if err != nil {
 			fmt.Println("Failed to receive message:", err)
+			time.Sleep(1 * time.Second)
 			continue
 		}
 		fmt.Println("Received message:", recvMsg)

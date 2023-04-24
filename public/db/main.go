@@ -20,10 +20,15 @@ const (
 	objectStoreName = "mystore"
 )
 
+const ctlDivId = "dbctl" // XXX should be more unique
+
 func main() {
+	var err error
+
 	defer func() {
 		// show a crash messsage
-		js.Global().Get("document").Call("getElementById", "db").Set("textContent", "Database app crashed")
+		msg := Spf("Database app crashed: %v", err)
+		js.Global().Get("document").Call("getElementById", "db").Set("textContent", msg)
 	}()
 
 	// Open the database named "mydb"
@@ -33,16 +38,23 @@ func main() {
 	db, err = req.Await(ctx)
 	Ck(err)
 
-	// Add a textarea to the web page
-	addTextArea()
+	// get db div
+	dbdiv := js.Global().Get("document").Call("getElementById", "db")
+	dbdiv.Set("textContent", "loaded")
+	// Add a div to contain the database UI
+	ui := addUiDiv(dbdiv)
+	// Add a message area
+	// msgdiv := addMessageArea(ui)
+	// Add a textarea
+	addTextArea(ui)
 	// Add buttons
-	addAddButton()
-	addDumpButton()
-	// Add a div to the web page to hold the database data dump
-	addDumpDiv()
+	addAddButton(ui)
+	addDumpButton(ui)
+	// Add a div to hold the database data dump
+	addDumpDiv(ui)
 
 	// replace the "loading" text with a message
-	js.Global().Get("document").Call("getElementById", "db").Set("textContent", "Database app loaded and running")
+	// dbdiv.Set("textContent", "running")
 
 	// wait forever
 	select {}
@@ -59,16 +71,25 @@ func createObjectStore(db *idb.Database, oldVersion, newVersion uint) (err error
 	return nil
 }
 
-func addTextArea() {
+// add a div to hold the database UI
+func addUiDiv(dbdiv js.Value) (div js.Value) {
+	// Create a div element
+	div = js.Global().Get("document").Call("createElement", "div")
+	div.Set("id", ctlDivId)
+	dbdiv.Call("appendChild", div)
+	return
+}
+
+func addTextArea(div js.Value) {
 	// Create a textarea element
 	textarea := js.Global().Get("document").Call("createElement", "textarea")
 	textarea.Set("id", "mytextarea")
 
-	// Add the textarea to the body of the page
-	js.Global().Get("document").Get("body").Call("appendChild", textarea)
+	// Add the textarea
+	div.Call("appendChild", textarea)
 }
 
-func addAddButton() {
+func addAddButton(div js.Value) {
 	// Create a button element
 	button := js.Global().Get("document").Call("createElement", "button")
 	button.Set("textContent", "Add key-value pair to the database")
@@ -76,11 +97,11 @@ func addAddButton() {
 	// Add an event listener to the button
 	button.Call("addEventListener", "click", js.FuncOf(onAddPress))
 
-	// Add the button to the body of the page
-	js.Global().Get("document").Get("body").Call("appendChild", button)
+	// Add the button
+	div.Call("appendChild", button)
 }
 
-func addDumpButton() {
+func addDumpButton(div js.Value) {
 	// Create a button element
 	button := js.Global().Get("document").Call("createElement", "button")
 	button.Set("textContent", "dump database")
@@ -88,16 +109,16 @@ func addDumpButton() {
 	// Add an event listener to the button
 	button.Call("addEventListener", "click", js.FuncOf(onDumpPress))
 
-	// Add the button to the body of the page
-	js.Global().Get("document").Get("body").Call("appendChild", button)
+	// Add the button
+	div.Call("appendChild", button)
 }
 
-func addDumpDiv() {
+func addDumpDiv(div js.Value) {
 	// Create a div element
-	div := js.Global().Get("document").Call("createElement", "div")
-	div.Set("id", "dump")
-	// Add the div to the body of the page
-	js.Global().Get("document").Get("body").Call("appendChild", div)
+	dump := js.Global().Get("document").Call("createElement", "div")
+	dump.Set("id", "dump")
+	// Add the div
+	div.Call("appendChild", dump)
 }
 
 func onAddPress(this js.Value, args []js.Value) interface{} {

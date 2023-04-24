@@ -108,3 +108,6 @@ dist
 wasm_exec.js
 local
 editor/build
+public/editor/main.js
+public/style.css
+.grok
