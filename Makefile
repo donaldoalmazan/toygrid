@@ -26,6 +26,12 @@ public/editor/main.js public/style.css: $(tiptap_srcs)
 clean:
 	rm -f $(wasm_objs)
 
-run:
-	cd server && go run . ~/lab/cswg/toygrid/public
+toygrid: server/server.go server/websocket.go
+	cd server && go build -o ../toygrid
 
+run: toygrid
+	./toygrid ~/lab/cswg/toygrid/public
+
+deploy: toygrid
+	rsync -e 'ssh -p 27022' -avz --delete ./ europa.d4.t7a.org:~/lab/cswg/toygrid/
+	ssh -p 27022 europa.d4.t7a.org 'cd ~/lab/cswg/toygrid && make run'

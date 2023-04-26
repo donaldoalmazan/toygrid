@@ -10,7 +10,7 @@ import (
 	. "github.com/stevegt/goadapt"
 )
 
-const port = 9273
+const port = 9073
 
 func main() {
 	dir := os.Args[1]
