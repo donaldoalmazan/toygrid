@@ -23,5 +23,5 @@ func main() {
 // a JavaScript value.
 func Hello(this js.Value, args []js.Value) interface{} {
 	Pl("Hello called")
-	return "Hello, WebAssembly!"
+	return "Hello, WebAssembly!  This is a Go app, compiled to WASM, running in your browser."
 }

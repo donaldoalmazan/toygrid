@@ -56,3 +56,30 @@ WebSockets and WebRTC, but you can also implement custom protocols to
 suit your application's specific needs. This flexibility makes Yjs
 adaptable to various use cases and network conditions.
 
+how do i rsync to a server when ssh is running on a high-numbered port?
+
+To use `rsync` when the SSH server is running on a high-numbered port,
+you can specify the port using the `-e` option followed by the `ssh -p
+[port_number]` command. The syntax for the `rsync` command would be:
+
+```bash
+rsync -avz -e 'ssh -p [port_number]' [source] [user]@[server]:[destination]
+```
+
+Replace `[port_number]` with the high-numbered port on which the SSH
+server is running. Replace `[source]` with the local file or directory
+you want to transfer, `[user]` with your remote server's username,
+`[server]` with the remote server's address or hostname, and
+`[destination]` with the path on the remote server where you want to
+transfer the files.
+
+For example, if the SSH server is running on port 2222, and you want
+to transfer a local directory named `my_directory` to the user `john`
+on the server `example.com` into the `/home/john/destination_folder`
+directory, the command would look like this:
+
+```bash
+rsync -avz -e 'ssh -p 2222' my_directory john@example.com:/home/john/destination_folder/
+```
+
+

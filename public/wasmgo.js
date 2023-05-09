@@ -6,7 +6,7 @@ export function runWasm(elementId, wasmFilename) {
         WebAssembly.instantiateStreaming(fetch(wasmFilename), go.importObject)
             .then((result) => {
                 go.run(result.instance);
-                document.getElementById(elementId).innerHTML = 'initializing...';
+                // document.getElementById(elementId).innerHTML = 'initializing...';
                 resolve();
             })
             .catch(err => {

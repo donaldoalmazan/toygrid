@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
+	"syscall/js"
 	"time"
 
 	. "github.com/stevegt/goadapt"
@@ -11,12 +12,38 @@ import (
 )
 
 const (
-	url = "ws://localhost:9273/echo" // XXX move to config or env
-	// url = "ws://echo.websocket.events"
+// url = "ws://localhost:9273/echo" // XXX move to config or env
+// url = "ws://echo.websocket.events"
 )
 
 func main() {
 	fmt.Println("WebSocket client in Go WASM")
+
+	// get server URL from javascript
+	window := js.Global()
+
+	// Access window.location property
+	location := window.Get("location")
+
+	// Access the properties of the location object
+	href := location.Get("href").String()
+	protocol := location.Get("protocol").String()
+	host := location.Get("host").String()
+	hostname := location.Get("hostname").String()
+	port := location.Get("port").String()
+	pathname := location.Get("pathname").String()
+	search := location.Get("search").String()
+	hash := location.Get("hash").String()
+
+	Pf("Href: %s\nProtocol: %s\nHost: %s\nHostname: %s\nPort: %s\nPathname: %s\nSearch: %s\nHash: %s\n",
+		href, protocol, host, hostname, port, pathname, search, hash)
+
+	url := Spf("%s//%s:%s/echo", protocol, hostname, port)
+	Pl("url:", url)
+
+	msg := Spf("This is a simple websocket communicator app running in your browser, talking to %s.", url)
+	wsdiv := js.Global().Get("document").Call("getElementById", "websocket")
+	wsdiv.Set("textContent", msg)
 
 	ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
 	defer cancel()

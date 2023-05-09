@@ -40,7 +40,7 @@ func main() {
 
 	// get db div
 	dbdiv := js.Global().Get("document").Call("getElementById", "db")
-	dbdiv.Set("textContent", "loaded")
+	dbdiv.Set("textContent", "This is a database app running in your browser, storing keys and values in your browser's IndexedDB database.")
 	// Add a div to contain the database UI
 	ui := addUiDiv(dbdiv)
 	// Add a message area
