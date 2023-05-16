@@ -854,3 +854,100 @@ Here are a few concepts that may be applicable:
 
 By analyzing and leveraging these ideas from Tahoe-LAFS, it's possible to incorporate valuable design concepts into pup, pupgrid, or toygrid projects.
 
+
+
+when using this CSS with index.html, i'm not getting the visible
+border lines around the microfrontends that i want:
+```css
+/* Style for each microfrontend */
+#javascript,
+#go,
+#db,
+#websocket {
+  background-color: lightgrey;
+  padding: 16px;
+  border-radius: 8px;
+  /* Width of each microfrontend divided equally */
+  width: calc((100% - 32px) / 3);
+  /* Replace height with your desired height */
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+}
+
+/* Container styles */
+#container {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+```
+
+You mentioned that you are not getting the visible border lines around
+the microfrontends. Based on the provided CSS, it seems that you have
+missed adding the border property to your microfrontend styling. To
+add border lines around the microfrontends, you need to add a lines of
+code like `border: 1px solid #000;` (you can adjust the color and the
+width of the border as per your preference) inside the #javascript,
+#go, #db, #websocket {} ruleset. Here's the updated CSS:
+
+```css
+/* Style for each microfrontend */
+#javascript,
+#go,
+#db,
+#websocket {
+  background-color: lightgrey;
+  padding: 16px;
+  border: 1px solid #000;
+  border-radius: 8px;
+  /* Width of each microfrontend divided equally */
+  width: calc((100% - 32px) / 3);
+  /* Replace height with your desired height */
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+}
+
+/* Container styles */
+#container {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+```
+
+This should give you the visible border lines around the microfrontends that you want.
+
+the 'db' div in public/index.html is rendered with text, followed by
+some button and field widgets.  but the buttons and field are showing
+up to the right of the text instead of below it. why?  is it something
+wrong in styles.css?
+
+The reason the buttons and field widgets are showing up to the right
+of the text instead of below it is likely due to the use of `display:
+flex;` in your CSS styles for the 'db' div. By default, the
+`flex-direction` property is set to `row`, which causes flex items to
+align horizontally. To make the buttons and field appear below the
+text, you can adjust the `flex-direction` property in your styles.css
+for the 'db' div:
+
+```css
+#db {
+  ...
+  display: flex;
+  flex-direction: column;
+  ...
+}
+```
+
+Adding `flex-direction: column;` will make the elements inside the 'db' div stack vertically, so the buttons and field will appear below the text.
+
