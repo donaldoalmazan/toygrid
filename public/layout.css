@@ -1,0 +1,26 @@
+
+/* Style for each microfrontend */
+#microfrontend-1,
+#microfrontend-2,
+#microfrontend-3 {
+  background-color: lightgrey;
+  padding: 16px;
+  border-radius: 8px;
+  /* Width of each microfrontend divided equally */
+  width: calc((100% - 32px) / 3);
+  /* Replace height with your desired height */
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+}
+
+/* Container styles */
+#container {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
