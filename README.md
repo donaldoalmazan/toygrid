@@ -22,15 +22,19 @@ TODO
           in the editor
         - goal is to describe the technology well enough for
           others to know what's doable and how to ask for it
-- deploy to a stable non-dev URL
+- deploy to a stable URL
     - containerize
     - DNS pool
+    - CI/CD  
 - either convert from yjs to PUP or write a PUP plugin for yjs
     - currently relies on https://github.com/yjs/yjs
     - currently using the centralized y-websocket protocol
     - Yjs can be operated peer-to-peer, but we're not using that
       capability yet, needs to be done
 - improve UI more
+    - more generic, able to support arbitrary apps without editing the
+      HTML
+    - desktop metaphor?  other?
 - add more demo apps 
     - index of related links e.g. what's shown at
       http://cswg.infrastructures.org/
