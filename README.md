@@ -10,22 +10,24 @@ TODO
 - DONE fix tiptap icons 
 - improve UI
     - simple demo for use in e.g. a social meetup of how this thing
-      might be used in a more formal session.  in order on page:
-      - welcome text
-      - editor
-        - still single-doc for now
+      might be used in a more formal session.  
+      - put a flexbox around each app for visual clarity DONE
+      - in order on page: DONE
+          - welcome text DONE
+          - editor
+            - still single-doc for now
       - show other demos after the editor, include a description of
         how each component enables the capabilities of a more
         full-featured session app
-        - put a flexbox around each app for visual clarity
         - e.g. describe how db component supports multiple documents
           in the editor
         - goal is to describe the technology well enough for
           others to know what's doable and how to ask for it
+- CI/CD  
+    - staging, prod servers
 - deploy to a stable URL
     - containerize
     - DNS pool
-    - CI/CD  
 - either convert from yjs to PUP or write a PUP plugin for yjs
     - currently relies on https://github.com/yjs/yjs
     - currently using the centralized y-websocket protocol
