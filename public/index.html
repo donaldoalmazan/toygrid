@@ -7,20 +7,22 @@
     </head>
     <body>
         
-        javascript: <div id="javascript">loading...</div><br>
-        go: <div id="go">loading...</div><br>
-        go IndexedDb: <div id="db">loading...</div><br>
-        go websocket: <div id="websocket">loading...</div><br>
-        tiptap: <div id="editor">loading...</div><br>
+        <div id="editor">loading...</div><br>
+        <div id="container">
+            javascript: <div id="javascript">loading...</div><br>
+            go: <div id="go">loading...</div><br>
+            go IndexedDb: <div id="db">loading...</div><br>
+            go websocket: <div id="websocket">loading...</div><br>
+        </div>
 
         <!-- XXX move these into the microfrontend code,
             possibly by using custom elements instead of divs -->
+        <script src="/editor/main.js" type="module" ></script> 
         <script src="/javascript/main.js"></script>
         <script src="/wasmgo.js" type="module" ></script> 
         <script src="/go/main.js" type="module" ></script> 
         <script src="/db/main.js" type="module" ></script> 
         <script src="/websocket/main.js" type="module" ></script> 
-        <script src="/editor/main.js" type="module" ></script> 
     </body>
 </html>
 
